@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'strscan'
 
 class RootCore
@@ -230,6 +232,10 @@ class RootCore
       end
     when :statement
       eval(exp[1])
+    when :assign
+    when :return
+    when :expression
+      eval(exp[1])
     when :add
       eval(exp[1]) + eval(exp[2])
     when :sub
@@ -253,11 +259,13 @@ class RootCore
     when :greater_than
       eval(exp[1]) >= eval(exp[1])
     when :function
-    when :assign
+    when :if
+    when :integer
+      exp[1].to_i
+    when :string
+      exp[1]
     when :boolean
       exp[1]
-    when :if
-    when :return
     end
   end
 
