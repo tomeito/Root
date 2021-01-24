@@ -92,7 +92,7 @@ class RootCore
 
     raise Exception, 'Missing ;.' unless get_token(/;/)
 
-    [:expression_statement, e]
+    [:expression, e]
   end
 
   def assign_statement
@@ -223,19 +223,42 @@ class RootCore
   end
 
   def eval(exp)
-    if exp.instance_of?(Array)
-      case exp[0]
-      when :add
-        return eval(exp[1]) + eval(exp[2])
-      when :sub
-        return eval(exp[1]) - eval(exp[2])
-      when :mul
-        return eval(exp[1]) * eval(exp[2])
-      when :div
-        return eval(exp[1]) / eval(exp[2])
+    case exp[0]
+    when :statements
+      exp[1].each do |statement|
+        eval(statement)
       end
+    when :statement
+      eval(exp[1])
+    when :add
+      eval(exp[1]) + eval(exp[2])
+    when :sub
+      eval(exp[1]) - eval(exp[2])
+    when :mul
+      eval(exp[1]) * eval(exp[2])
+    when :div
+      eval(exp[1]) / eval(exp[2])
+    when :bang
+      !eval(exp[1])
+    when :equal
+      eval(exp[1]) == eval(exp[1])
+    when :not_equal
+      eval(exp[1]) != eval(exp[1])
+    when :less
+      eval(exp[1]) < eval(exp[1])
+    when :greater
+      eval(exp[1]) > eval(exp[1])
+    when :less_than
+      eval(exp[1]) <= eval(exp[1])
+    when :greater_than
+      eval(exp[1]) >= eval(exp[1])
+    when :function
+    when :assign
+    when :boolean
+      exp[1]
+    when :if
+    when :return
     end
-    exp.to_f
   end
 
   def initialize
