@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby
-# frozen_string_literal: true
 
 require 'strscan'
+require './enviroment.rb'
 
 class RootCore
   @@tokens = {
@@ -39,7 +39,7 @@ class RootCore
 
   @@keywords = [:function, :let, true, false, :if, :else, :return]
 
-  @@environment = {}
+  @@params_heap = {}
 
   def get_token(regexp)
     return nil if @scanner.eos?
@@ -178,7 +178,8 @@ class RootCore
     elsif token == :bang
       result = [:bang, sum]
     elsif token == :function
-      result = [:function, function]
+      param, block = function
+      result = [:function, param, block]
     elsif token
       result = [:identifier, token]
       if get_token(/\(/)
@@ -220,59 +221,101 @@ class RootCore
       parameters.append(parameter)
       get_token(/\s*,\s*/)
     end
-    b = [:block, block]
-    [parameters, b]
+    [parameters, block]
   end
 
-  def eval(exp)
+  def eval(exp, env)
     case exp[0]
     when :statements
-      exp[1].each do |statement|
-        eval(statement)
+      exp.drop(1).each do |statement|
+        result, is_return = eval(statement, env)
+        return result if is_return
       end
     when :statement
-      eval(exp[1])
-    when :assign
-    when :return
+      eval(exp[1], env)
     when :expression
-      eval(exp[1])
+      eval(exp[1], env)
+    when :assign
+      raise Exception, 'Identifier contains a reserved word.' if @@keywords.include?(exp[1])
+
+      register_params(exp[1], exp[2]) if exp[2][0] == :function
+      env.set(exp[1], eval(exp[2], env))
+      nil
+    when :return
+      result = eval(exp[1], env)
+      [result, true]
     when :add
-      eval(exp[1]) + eval(exp[2])
+      eval(exp[1], env) + eval(exp[2], env)
     when :sub
-      eval(exp[1]) - eval(exp[2])
+      eval(exp[1], env) - eval(exp[2], env)
     when :mul
-      eval(exp[1]) * eval(exp[2])
+      eval(exp[1], env) * eval(exp[2], env)
     when :div
-      eval(exp[1]) / eval(exp[2])
+      eval(exp[1], env) / eval(exp[2], env)
     when :bang
-      !eval(exp[1])
+      !eval(exp[1], env)
     when :equal
-      eval(exp[1]) == eval(exp[1])
+      eval(exp[1], env) == eval(exp[2], env)
     when :not_equal
-      eval(exp[1]) != eval(exp[1])
+      eval(exp[1], env) != eval(exp[2], env)
     when :less
-      eval(exp[1]) < eval(exp[1])
+      eval(exp[1], env) < eval(exp[2], env)
     when :greater
-      eval(exp[1]) > eval(exp[1])
+      eval(exp[1], env) > eval(exp[2], env)
     when :less_than
-      eval(exp[1]) <= eval(exp[1])
+      eval(exp[1], env) <= eval(exp[2], env)
     when :greater_than
-      eval(exp[1]) >= eval(exp[1])
+      eval(exp[1], env) >= eval(exp[2], env)
     when :function
+      exp[2]
+    when :call
+      name = exp[1][1]
+      args = exp[2].clone.drop(1)
+
+      outer = env
+      env = Environment.new_enclosed(outer)
+      @@params_heap[name].zip(args).each do |param, arg|
+        env.set(param, eval(arg, outer))
+      end
+
+      function_block = eval(exp[1], env)
+      eval(function_block, env)
     when :if
+      outer = env
+      env = Environment.new_enclosed(outer)
+      if eval(exp[1], outer)
+        eval(exp[2], env)
+      elsif exp[3]
+        eval(exp[3], env)
+      end
+    when :block
+      statements = exp.drop(1)
+      statements.each do |statement|
+        result, is_return = eval(statement, env)
+        return result if is_return
+      end
+      result
     when :integer
       exp[1].to_i
     when :string
       exp[1]
     when :boolean
       exp[1]
+    when :identifier
+      env.get(exp[1])
     end
+  end
+
+  def register_params(name, function)
+    params = function[1].drop(1)
+    @@params_heap[name] = params
   end
 
   def initialize
     @scanner = StringScanner.new(ARGF.read)
-    # p eval parse
-    p parse
+    env = Environment.new
+    eval(parse, env)
+    # p parse
   end
 end
 
