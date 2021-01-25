@@ -345,8 +345,6 @@ class Root
   end
 
   def eval_if(exp, env)
-    outer = env
-    env = Environment.new_enclosed(outer)
     if eval(exp[1], outer)
       eval(exp[2], env)
     elsif exp[3]
