@@ -39,7 +39,7 @@ class Root
     'loop' => :loop
   }
 
-  @@keywords = [:function, :let, true, false, :if, :else, :return, :print, :loop, :read]
+  @@keywords = [:function, :let, true, false, :if, :else, :return, :print, :loop, :read, :readNum]
 
   @@builtins = {
     'print' => lambda { |*args|
@@ -282,7 +282,7 @@ class Root
     when :mul
       eval(exp[1], env) * eval(exp[2], env)
     when :div
-      eval(exp[1], env) / eval(exp[2], env)
+      eval(exp[1], env).to_i / eval(exp[2], env).to_i
     when :bang
       !eval(exp[1], env)
     when :equal
