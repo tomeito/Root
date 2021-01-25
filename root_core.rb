@@ -35,13 +35,19 @@ class RootCore
     'if' => :if,
     'else' => :else,
     'return' => :return,
-    'print' => :print,
     'loop' => :loop
   }
 
-  @@keywords = [:function, :let, true, false, :if, :else, :return, :print, :loop]
+  @@keywords = [:function, :let, true, false, :if, :else, :return, :print, :loop, :read]
 
-  @@params_heap = {}
+  @@builtins = {
+    'print' => lambda { |*args|
+      puts args
+    },
+    'read' => lambda { |*_args|
+      $stdin.gets.chomp
+    }
+  }
 
   def get_token(regexp)
     return nil if @scanner.eos?
@@ -82,8 +88,8 @@ class RootCore
       parse_return_statement
     elsif get_token(/loop\s*/)
       parse_loop_statement
-    elsif get_token(/print\s+/)
-      parse_print_statement
+    elsif get_token(/read\s+/)
+      parse_read_statement
     else
       parse_expression_statement
     end
@@ -129,13 +135,6 @@ class RootCore
 
   def parse_loop_statement
     [:loop, parse_block]
-  end
-
-  def parse_print_statement
-    result = [:print, parse_expression]
-    raise Exception, 'Missing ;.' unless get_token(/;/)
-
-    result
   end
 
   def parse_expression_statement
@@ -194,7 +193,7 @@ class RootCore
       param, block = parse_function
       result = [:function, param, block]
     elsif token
-      result = parse_indentifier(token)
+      result = parse_identifier(token)
     else
       raise Exception, 'Expression Error.'
     end
@@ -207,7 +206,7 @@ class RootCore
     [:string, value]
   end
 
-  def parse_indentifier(token)
+  def parse_identifier(token)
     result = [:identifier, token]
     if get_token(/\(/)
       result = [:call, result]
@@ -267,8 +266,6 @@ class RootCore
       eval_if(exp, env)
     when :loop
       eval_loop(exp, env)
-    when :print
-      eval_print(exp, env)
     when :add
       eval(exp[1], env) + eval(exp[2], env)
     when :sub
@@ -318,16 +315,19 @@ class RootCore
   def eval_assingment(exp, env)
     raise Exception, 'Identifier contains a reserved word.' if @@keywords.include?(exp[1])
 
-    register_params(exp[1], exp[2]) if exp[2][0] == :function
     env.set(exp[1], eval(exp[2], env))
     nil
   end
 
   def eval_call(exp, env)
-    # env.list
     params, function_block, outer_env = eval(exp[1], env)
-    params = params.drop(1)
     args = exp[2].clone.drop(1)
+    if params == :builtin
+      args = args.map { |arg| eval(arg, env) }
+      return function_block.call(*args)
+    end
+
+    params = params.drop(1)
 
     env = Environment.new_enclosed(outer_env)
     params&.zip(args)&.each do |param, arg|
@@ -356,11 +356,6 @@ class RootCore
     end
   end
 
-  def eval_print(exp, env)
-    result, = eval(exp[1], env)
-    puts result
-  end
-
   def eval_block(exp, env)
     statements = exp.drop(1)
     result = nil
@@ -373,14 +368,12 @@ class RootCore
 
   def eval_identifier(exp, env)
     result = env.get(exp[1])
+    return result unless result.nil?
+
+    result = @@builtins[exp[1]]
+    return [:builtin, result] unless result.nil?
+
     raise Exception, "#{exp[1]} is not found." if result.nil?
-
-    result
-  end
-
-  def register_params(name, function)
-    params = function[1].drop(1)
-    @@params_heap[name] = params
   end
 
   def initialize
