@@ -14,5 +14,5 @@ Root の実行ファイルには、拡張子`.root`を使用します。
 chmod 755 ./root
 
 # 任意の.rootファイルを実行
-./root sample/guess_game.root
+./root sample/hello_world.root
 ```
