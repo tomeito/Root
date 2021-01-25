@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # representing the scope of a variable
 class Environment
   def initialize
@@ -25,14 +23,5 @@ class Environment
   def set(name, val)
     @store[name] = val
     val
-  end
-
-  def list
-    p "env: #{@store}"
-    if @outer
-      @outer.list
-    else
-      p 'outer is nil.'
-    end
   end
 end

@@ -3,7 +3,8 @@
 require 'strscan'
 require './enviroment.rb'
 
-class RootCore
+# Root of core
+class Root
   @@tokens = {
     '=' => :assign,
     '+' => :add,
@@ -48,6 +49,12 @@ class RootCore
       $stdin.gets.chomp
     }
   }
+
+  def initialize
+    @scanner = StringScanner.new(ARGF.read)
+    env = Environment.new
+    eval(parse_program, env)
+  end
 
   def get_token(regexp)
     return nil if @scanner.eos?
@@ -375,13 +382,6 @@ class RootCore
 
     raise Exception, "#{exp[1]} is not found." if result.nil?
   end
-
-  def initialize
-    @scanner = StringScanner.new(ARGF.read)
-    env = Environment.new
-    eval(parse_program, env)
-    # p parse_program
-  end
 end
 
-RootCore.new
+Root.new
