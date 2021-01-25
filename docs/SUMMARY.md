@@ -21,6 +21,7 @@
     - [組み込み関数](function.md#組み込み関数)
       - [print](function.md#print)
       - [read](function.md#read)
+      - [readNum](function.md#readnum)
   - [サンプルコード](sample.md)
     - [fibonacci.root](sample.md#fibonacciroot)
     - [leap_year.root](sample.md#leapyearroot)

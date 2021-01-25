@@ -382,6 +382,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.2.2.4.3" data-path="function.html">
+            
+                <a href="function.html#readnum">
+            
+                    
+                    readNum
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -512,7 +525,8 @@ false;
 <p><code>true</code>、あるいは<code>false</code>で真偽値リテラルを表現することができます。</p>
 <h2 id="算術演算子">算術演算子</h2>
 <p>算術演算子として、<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>()</code>が使用できます。
-一般的なプログラミング言語と同じ動作をします。</p>
+一般的なプログラミング言語と同じ動作をします。
+ただし除算<code>/</code>のみ、内部で数値を整数に変換してから計算を行います。</p>
 <pre><code>let a = 1 + 1;
 let b = &quot;st&quot; + &quot;ring&quot;;
 let c = (3 + 10) * 2 - (50-10) / 4;
@@ -527,7 +541,7 @@ let c = true;
 <pre><code>let a = 1;
 a = 10;
 print(a);
-</code></pre><p>正しいコードは以下の通りです(10 と出力される)。</p>
+</code></pre><p>正しいコードは以下の通りです(10.0 と出力される)。</p>
 <pre><code>let a = 1;
 let a = 10;
 print(a);
@@ -601,7 +615,7 @@ loop 文から抜け出すには、<code>return</code>キーワードを使用�
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"チュートリアル","level":"1.2","depth":1,"next":{"title":"基本文法","level":"1.2.1","depth":2,"path":"tutorial.md","ref":"tutorial.md","articles":[{"title":"文","level":"1.2.1.1","depth":3,"anchor":"#文","path":"tutorial.md","ref":"tutorial.md#文","articles":[]},{"title":"リテラル","level":"1.2.1.2","depth":3,"anchor":"#リテラル","path":"tutorial.md","ref":"tutorial.md#リテラル","articles":[{"title":"数値リテラル","level":"1.2.1.2.1","depth":4,"anchor":"#数値リテラル","path":"tutorial.md","ref":"tutorial.md#数値リテラル","articles":[]},{"title":"文字列リテラル","level":"1.2.1.2.2","depth":4,"anchor":"#文字列リテラル","path":"tutorial.md","ref":"tutorial.md#文字列リテラル","articles":[]},{"title":"真偽値リテラル","level":"1.2.1.2.3","depth":4,"anchor":"#真偽値リテラル","path":"tutorial.md","ref":"tutorial.md#真偽値リテラル","articles":[]}]},{"title":"算術演算子","level":"1.2.1.3","depth":3,"anchor":"#算術演算子","path":"tutorial.md","ref":"tutorial.md#算術演算子","articles":[]},{"title":"代入文","level":"1.2.1.4","depth":3,"anchor":"#代入文","path":"tutorial.md","ref":"tutorial.md#代入文","articles":[]},{"title":"if...else 文","level":"1.2.1.5","depth":3,"anchor":"#ifelse-文","path":"tutorial.md","ref":"tutorial.md#ifelse-文","articles":[]},{"title":"loop 文","level":"1.2.1.6","depth":3,"anchor":"#loop-文","path":"tutorial.md","ref":"tutorial.md#loop-文","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"Root とは？","level":"1.1.1","depth":2,"anchor":"#root-とは？","path":"README.md","ref":"README.md#root-とは？","articles":[]},{"title":"実行","level":"1.1.2","depth":2,"anchor":"#実行","path":"README.md","ref":"README.md#実行","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"tutorial.md","mtime":"2021-01-25T19:19:34.736Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-25T22:17:56.952Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"チュートリアル","level":"1.2","depth":1,"next":{"title":"基本文法","level":"1.2.1","depth":2,"path":"tutorial.md","ref":"tutorial.md","articles":[{"title":"文","level":"1.2.1.1","depth":3,"anchor":"#文","path":"tutorial.md","ref":"tutorial.md#文","articles":[]},{"title":"リテラル","level":"1.2.1.2","depth":3,"anchor":"#リテラル","path":"tutorial.md","ref":"tutorial.md#リテラル","articles":[{"title":"数値リテラル","level":"1.2.1.2.1","depth":4,"anchor":"#数値リテラル","path":"tutorial.md","ref":"tutorial.md#数値リテラル","articles":[]},{"title":"文字列リテラル","level":"1.2.1.2.2","depth":4,"anchor":"#文字列リテラル","path":"tutorial.md","ref":"tutorial.md#文字列リテラル","articles":[]},{"title":"真偽値リテラル","level":"1.2.1.2.3","depth":4,"anchor":"#真偽値リテラル","path":"tutorial.md","ref":"tutorial.md#真偽値リテラル","articles":[]}]},{"title":"算術演算子","level":"1.2.1.3","depth":3,"anchor":"#算術演算子","path":"tutorial.md","ref":"tutorial.md#算術演算子","articles":[]},{"title":"代入文","level":"1.2.1.4","depth":3,"anchor":"#代入文","path":"tutorial.md","ref":"tutorial.md#代入文","articles":[]},{"title":"if...else 文","level":"1.2.1.5","depth":3,"anchor":"#ifelse-文","path":"tutorial.md","ref":"tutorial.md#ifelse-文","articles":[]},{"title":"loop 文","level":"1.2.1.6","depth":3,"anchor":"#loop-文","path":"tutorial.md","ref":"tutorial.md#loop-文","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"Root とは？","level":"1.1.1","depth":2,"anchor":"#root-とは？","path":"README.md","ref":"README.md#root-とは？","articles":[]},{"title":"実行","level":"1.1.2","depth":2,"anchor":"#実行","path":"README.md","ref":"README.md#実行","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"tutorial.md","mtime":"2021-01-25T19:19:34.736Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-25T22:25:54.261Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

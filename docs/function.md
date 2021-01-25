@@ -55,7 +55,7 @@ print(a);
 
 ## 組み込み関数
 
-Root には、現在 2 種類の組み込み関数が存在しています。
+Root には、現在 3 種類の組み込み関数が存在しています。
 
 ### print
 
@@ -80,10 +80,20 @@ Root
 
 ### read
 
-標準入力から一行読み、その値を返します。
+標準入力から一行読み、その文字列の値を返します。
 
 ```
 print("Enter your name!");
 let name = read();
 print("Hello, " + name + "!");
+```
+
+### readNum
+
+標準入力から一行読み、その数値の値を返します。
+
+```
+print("Enter your number!");
+let num = readNum();
+print(num + 10);
 ```
