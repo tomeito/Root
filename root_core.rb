@@ -324,15 +324,14 @@ class RootCore
   end
 
   def eval_call(exp, env)
-    env.list
-    params, function_block = eval(exp[1], env)
+    # env.list
+    params, function_block, outer_env = eval(exp[1], env)
     params = params.drop(1)
     args = exp[2].clone.drop(1)
 
-    outer = env
-    env = Environment.new_enclosed(outer)
+    env = Environment.new_enclosed(outer_env)
     params&.zip(args)&.each do |param, arg|
-      env.set(param, eval(arg, outer))
+      env.set(param, eval(arg, outer_env))
     end
     result, _is_returned = eval(function_block, env)
     result
