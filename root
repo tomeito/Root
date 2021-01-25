@@ -302,7 +302,7 @@ class Root
     when :block
       eval_block(exp, env)
     when :integer
-      exp[1].to_i
+      exp[1].to_f
     when :string
       exp[1]
     when :boolean
