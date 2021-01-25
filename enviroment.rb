@@ -28,7 +28,11 @@ class Environment
   end
 
   def list
-    p @store
-    p @outer.list unless @outer.nil?
+    p "env: #{@store}"
+    if @outer
+      @outer.list
+    else
+      p 'outer is nil.'
+    end
   end
 end

@@ -34,10 +34,12 @@ class RootCore
     'false' => false,
     'if' => :if,
     'else' => :else,
-    'return' => :return
+    'return' => :return,
+    'print' => :print,
+    'loop' => :loop
   }
 
-  @@keywords = [:function, :let, true, false, :if, :else, :return]
+  @@keywords = [:function, :let, true, false, :if, :else, :return, :print, :loop]
 
   @@params_heap = {}
 
@@ -76,21 +78,15 @@ class RootCore
       parse_assign_statement
     elsif get_token(/if\s*/)
       parse_if_statement
-    elsif get_token(/return\s+/)
+    elsif get_token(/return\s*/)
       parse_return_statement
+    elsif get_token(/loop\s*/)
+      parse_loop_statement
+    elsif get_token(/print\s+/)
+      parse_print_statement
     else
       parse_expression_statement
     end
-  end
-
-  def parse_expression_statement
-    unless e = parse_expression
-      raise Exception, 'Expect expression, but not exist.'
-    end
-
-    raise Exception, 'Missing ;.' unless get_token(/;/)
-
-    [:expression, e]
   end
 
   def parse_assign_statement
@@ -107,6 +103,8 @@ class RootCore
   end
 
   def parse_return_statement
+    return [:return] if get_token(/;/)
+
     e = parse_expression
     get_token(/;/)
     [:return, e]
@@ -127,6 +125,27 @@ class RootCore
     else
       [:if, condition, consequence]
     end
+  end
+
+  def parse_loop_statement
+    [:loop, parse_block]
+  end
+
+  def parse_print_statement
+    result = [:print, parse_expression]
+    raise Exception, 'Missing ;.' unless get_token(/;/)
+
+    result
+  end
+
+  def parse_expression_statement
+    unless e = parse_expression
+      raise Exception, 'Expect expression, but not exist.'
+    end
+
+    raise Exception, 'Missing ;.' unless get_token(/;/)
+
+    [:expression, e]
   end
 
   def parse_expression
@@ -184,7 +203,7 @@ class RootCore
 
   def parse_string
     value = ''
-    value.concat(get_token(/./)) until get_token(/"/)
+    value.concat(@scanner.scan(/./)) until get_token(/"/)
     [:string, value]
   end
 
@@ -230,6 +249,8 @@ class RootCore
   end
 
   def eval(exp, env)
+    return if exp.nil?
+
     case exp[0]
     when :statements
       eval_statements(exp, env)
@@ -242,6 +263,12 @@ class RootCore
     when :return
       result = eval(exp[1], env)
       [result, true]
+    when :if
+      eval_if(exp, env)
+    when :loop
+      eval_loop(exp, env)
+    when :print
+      eval_print(exp, env)
     when :add
       eval(exp[1], env) + eval(exp[2], env)
     when :sub
@@ -265,11 +292,9 @@ class RootCore
     when :greater_than
       eval(exp[1], env) >= eval(exp[2], env)
     when :function
-      exp[2]
+      [exp[1], exp[2], env]
     when :call
       eval_call(exp, env)
-    when :if
-      eval_if(exp, env)
     when :block
       eval_block(exp, env)
     when :integer
@@ -279,14 +304,14 @@ class RootCore
     when :boolean
       exp[1]
     when :identifier
-      env.get(exp[1])
+      eval_identifier(exp, env)
     end
   end
 
   def eval_statements(exp, env)
     exp.drop(1).each do |statement|
-      result, is_return = eval(statement, env)
-      return result if is_return
+      result, is_returned = eval(statement, env)
+      return result if is_returned
     end
   end
 
@@ -299,17 +324,18 @@ class RootCore
   end
 
   def eval_call(exp, env)
-    name = exp[1][1]
+    env.list
+    params, function_block = eval(exp[1], env)
+    params = params.drop(1)
     args = exp[2].clone.drop(1)
 
     outer = env
     env = Environment.new_enclosed(outer)
-    @@params_heap[name].zip(args).each do |param, arg|
+    params&.zip(args)&.each do |param, arg|
       env.set(param, eval(arg, outer))
     end
-
-    function_block = eval(exp[1], env)
-    eval(function_block, env)
+    result, _is_returned = eval(function_block, env)
+    result
   end
 
   def eval_if(exp, env)
@@ -322,12 +348,34 @@ class RootCore
     end
   end
 
+  def eval_loop(exp, env)
+    outer = env
+    env = Environment.new_enclosed(outer)
+    loop do
+      _result, is_returned = eval(exp[1], env)
+      return if is_returned
+    end
+  end
+
+  def eval_print(exp, env)
+    result, = eval(exp[1], env)
+    puts result
+  end
+
   def eval_block(exp, env)
     statements = exp.drop(1)
+    result = nil
     statements.each do |statement|
-      result, is_return = eval(statement, env)
-      return result if is_return
+      result, is_returned = eval(statement, env)
+      return [result, true] if is_returned
     end
+    [result, false]
+  end
+
+  def eval_identifier(exp, env)
+    result = env.get(exp[1])
+    raise Exception, "#{exp[1]} is not found." if result.nil?
+
     result
   end
 
@@ -340,7 +388,7 @@ class RootCore
     @scanner = StringScanner.new(ARGF.read)
     env = Environment.new
     eval(parse_program, env)
-    # p parse
+    # p parse_program
   end
 end
 
