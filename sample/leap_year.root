@@ -1,0 +1,28 @@
+let mod = fn(x, y) {
+    if (x / y < 1) {
+        if (x / y == 0) {
+            return x/y;
+        }
+        return x;
+    }
+    let result = x / y;
+    mod(result, y);
+};
+
+print("年を入力してください。");
+let year = readNum();
+
+if (mod(year, 400) == 0) {
+    print("うるう年です。");
+} else {
+    if(mod(year, 100) == 0) {
+        print("うるう年ではありません。");
+    } else {
+        if(mod(year, 4) == 0) {
+            print("うるう年です。");
+        } else {
+            print("うるう年ではありません。");
+        }
+    }
+}
+
