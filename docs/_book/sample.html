@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>関数とスコープ · HonKit</title>
+        <title>サンプルコード · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.6.16">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="sample.html" />
     
-    
-    <link rel="prev" href="tutorial.html" />
+    <link rel="prev" href="function.html" />
     
 
     </head>
@@ -289,7 +287,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.2" data-path="function.html">
+        <li class="chapter " data-level="1.2.2" data-path="function.html">
             
                 <a href="function.html">
             
@@ -392,7 +390,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="sample.html">
+        <li class="chapter active" data-level="1.2.3" data-path="sample.html">
             
                 <a href="sample.html">
             
@@ -472,7 +470,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >関数とスコープ</a>
+        <a href="." >サンプルコード</a>
     </h1>
 </div>
 
@@ -487,56 +485,61 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="関数とスコープ">関数とスコープ</h1>
-<h2 id="関数式">関数式</h2>
-<p>Root における関数は、第一級関数(に近いもの)です。
-そのため、変数に代入することができたり、関数の引数として関数を渡したりすることもできます。
-以下のコードでは、7.0 が出力されます。</p>
-<pre><code>let add = fn (x, y) {
-    return x + y;
+                                <h1 id="サンプルコード">サンプルコード</h1>
+<h2 id="fibonacciroot">fibonacci.root</h2>
+<p>入力された数のフィボナッチ数を 1 から順番に出力するプログラムです。</p>
+<pre><code>let fibonacci = fn(x) {
+    if (x == 0) {
+        return 0;
+    } else {
+        if (x == 1) {
+            return 1;
+        } else {
+            return fibonacci(x - 1) + fibonacci(x - 2);
+        }
+    }
 };
 
-print(add(2, 5));
-</code></pre><p>また、一般的なプログラミング言語で以下のような文法を見かけたことがあるかもしれませんが、Root ではエラーを発生させます。</p>
-<pre><code>fn add(x, y) {
-    return x + y;
-}
-</code></pre><h2 id="呼び出し式">呼び出し式</h2>
-<p>前項ですでに使用していましたが、関数の呼び出しは以下のように行います。</p>
-<pre><code>print(add(2, 5));
-</code></pre><p>ここでの<code>add</code>というキーワードは、関数を束縛している識別子です。<br>また、以下のような記述も可能です(10.0 が出力される)。</p>
-<pre><code>let a = 5 + add(1,4);
-print(a);
-</code></pre><h2 id="変数のスコープ">変数のスコープ</h2>
-<p>Root では、ブロック(<code>{}</code>で囲まれた部分)で新たに変数のスコープが作られます。
-以下のコードでははじめに 5.0 が、後に 10.0 が出力されます。</p>
-<pre><code>let a = 10;
+print(&quot;How many?(one of more)&quot;);
+let num = readNum();
+
+let i = 1;
 loop {
-    let a = 5;
-    print(5);
-    return;
+    print(fibonacci(i));
+    let i = i + 1;
+    if (i &gt; num) {
+        return;
+    }
 }
-print(a);
-</code></pre><h2 id="組み込み関数">組み込み関数</h2>
-<p>Root には、現在 2 種類の組み込み関数が存在しています。</p>
-<h3 id="print">print</h3>
-<p>引数で与えられた値を出力します。引数が複数与えられた場合、一つずつ順番に、改行を行いながら出力します。</p>
-<pre><code>print(10);
-print(1, 2, 4);
-let a = &quot;Root&quot;;
-print(a);
-</code></pre><p>出力結果</p>
-<pre><code class="lang-zsh">10.0
-1.0
-2.0
-4.0
-Root
-</code></pre>
-<h3 id="read">read</h3>
-<p>標準入力から一行読み、その値を返します。</p>
-<pre><code>print(&quot;Enter your name!&quot;);
-let name = read();
-print(&quot;Hello, &quot; + name + &quot;!&quot;);
+</code></pre><h2 id="leapyearroot">leap_year.root</h2>
+<p>入力された年がうるう年かどうかを判定すプログラムです。</p>
+<pre><code>let mod = fn(x, y) {
+    if (x / y &lt; 1) {
+        if (x / y == 0) {
+            return x/y;
+        }
+        return x;
+    }
+    let result = x / y;
+    mod(result, y);
+};
+
+print(&quot;年を入力してください。&quot;);
+let year = readNum();
+
+if (mod(year, 400) == 0) {
+    print(&quot;うるう年です。&quot;);
+} else {
+    if(mod(year, 100) == 0) {
+        print(&quot;うるう年ではありません。&quot;);
+    } else {
+        if(mod(year, 4) == 0) {
+            print(&quot;うるう年です。&quot;);
+        } else {
+            print(&quot;うるう年ではありません。&quot;);
+        }
+    }
+}
 </code></pre>
                                 
                                 </section>
@@ -564,14 +567,10 @@ print(&quot;Hello, &quot; + name + &quot;!&quot;);
 
             
                 
-                <a href="tutorial.html" class="navigation navigation-prev " aria-label="Previous page: 基本文法">
+                <a href="function.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 関数とスコープ">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="sample.html" class="navigation navigation-next " aria-label="Next page: サンプルコード">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -580,7 +579,7 @@ print(&quot;Hello, &quot; + name + &quot;!&quot;);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"関数とスコープ","level":"1.2.2","depth":2,"next":{"title":"サンプルコード","level":"1.2.3","depth":2,"path":"sample.md","ref":"sample.md","articles":[{"title":"fibonacci.root","level":"1.2.3.1","depth":3,"anchor":"#fibonacciroot","path":"sample.md","ref":"sample.md#fibonacciroot","articles":[]},{"title":"leap_year.root","level":"1.2.3.2","depth":3,"anchor":"#leapyearroot","path":"sample.md","ref":"sample.md#leapyearroot","articles":[]}]},"previous":{"title":"基本文法","level":"1.2.1","depth":2,"path":"tutorial.md","ref":"tutorial.md","articles":[{"title":"文","level":"1.2.1.1","depth":3,"anchor":"#文","path":"tutorial.md","ref":"tutorial.md#文","articles":[]},{"title":"リテラル","level":"1.2.1.2","depth":3,"anchor":"#リテラル","path":"tutorial.md","ref":"tutorial.md#リテラル","articles":[{"title":"数値リテラル","level":"1.2.1.2.1","depth":4,"anchor":"#数値リテラル","path":"tutorial.md","ref":"tutorial.md#数値リテラル","articles":[]},{"title":"文字列リテラル","level":"1.2.1.2.2","depth":4,"anchor":"#文字列リテラル","path":"tutorial.md","ref":"tutorial.md#文字列リテラル","articles":[]},{"title":"真偽値リテラル","level":"1.2.1.2.3","depth":4,"anchor":"#真偽値リテラル","path":"tutorial.md","ref":"tutorial.md#真偽値リテラル","articles":[]}]},{"title":"算術演算子","level":"1.2.1.3","depth":3,"anchor":"#算術演算子","path":"tutorial.md","ref":"tutorial.md#算術演算子","articles":[]},{"title":"代入文","level":"1.2.1.4","depth":3,"anchor":"#代入文","path":"tutorial.md","ref":"tutorial.md#代入文","articles":[]},{"title":"if...else 文","level":"1.2.1.5","depth":3,"anchor":"#ifelse-文","path":"tutorial.md","ref":"tutorial.md#ifelse-文","articles":[]},{"title":"loop 文","level":"1.2.1.6","depth":3,"anchor":"#loop-文","path":"tutorial.md","ref":"tutorial.md#loop-文","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"function.md","mtime":"2021-01-25T20:08:05.958Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-25T22:17:56.952Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"サンプルコード","level":"1.2.3","depth":2,"previous":{"title":"関数とスコープ","level":"1.2.2","depth":2,"path":"function.md","ref":"function.md","articles":[{"title":"関数式","level":"1.2.2.1","depth":3,"anchor":"#関数式","path":"function.md","ref":"function.md#関数式","articles":[]},{"title":"呼び出し式","level":"1.2.2.2","depth":3,"anchor":"#呼び出し式","path":"function.md","ref":"function.md#呼び出し式","articles":[]},{"title":"変数のスコープ","level":"1.2.2.3","depth":3,"anchor":"#変数のスコープ","path":"function.md","ref":"function.md#変数のスコープ","articles":[]},{"title":"組み込み関数","level":"1.2.2.4","depth":3,"anchor":"#組み込み関数","path":"function.md","ref":"function.md#組み込み関数","articles":[{"title":"print","level":"1.2.2.4.1","depth":4,"anchor":"#print","path":"function.md","ref":"function.md#print","articles":[]},{"title":"read","level":"1.2.2.4.2","depth":4,"anchor":"#read","path":"function.md","ref":"function.md#read","articles":[]}]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"sample.md","mtime":"2021-01-25T22:17:12.048Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-25T22:17:56.952Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
