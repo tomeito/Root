@@ -47,6 +47,9 @@ class Root
     },
     'read' => lambda { |*_args|
       $stdin.gets.chomp
+    },
+    'readNum' => lambda { |*_args|
+      $stdin.gets.chomp.to_f
     }
   }
 
@@ -54,6 +57,7 @@ class Root
     @scanner = StringScanner.new(ARGF.read)
     env = Environment.new
     eval(parse_program, env)
+    # p parse_program
   end
 
   def get_token(regexp)
@@ -95,8 +99,6 @@ class Root
       parse_return_statement
     elsif get_token(/loop\s*/)
       parse_loop_statement
-    elsif get_token(/read\s+/)
-      parse_read_statement
     else
       parse_expression_statement
     end
@@ -336,16 +338,16 @@ class Root
 
     params = params.drop(1)
 
-    env = Environment.new_enclosed(outer_env)
+    extend_env = Environment.new_enclosed(outer_env)
     params&.zip(args)&.each do |param, arg|
-      env.set(param, eval(arg, outer_env))
+      extend_env.set(param, eval(arg, env))
     end
-    result, _is_returned = eval(function_block, env)
+    result, _is_returned = eval(function_block, extend_env)
     result
   end
 
   def eval_if(exp, env)
-    if eval(exp[1], outer)
+    if eval(exp[1], env)
       eval(exp[2], env)
     elsif exp[3]
       eval(exp[3], env)
@@ -378,7 +380,7 @@ class Root
     result = @@builtins[exp[1]]
     return [:builtin, result] unless result.nil?
 
-    raise Exception, "#{exp[1]} is not found." if result.nil?
+    raise Exception, "#{exp[1]} is not found."
   end
 end
 

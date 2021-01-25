@@ -24,4 +24,13 @@ class Environment
     @store[name] = val
     val
   end
+
+  def list
+    p "env: #{@store}"
+    # if @outer
+    #   @outer.list
+    # else
+    #   p 'outer is nil.'
+    # end
+  end
 end
