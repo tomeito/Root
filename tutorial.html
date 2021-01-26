@@ -104,7 +104,7 @@
     
         <li class="chapter " data-level="1.1.1" data-path="./">
             
-                <a href="./#root-とは？">
+                <a href="./#root-とは?">
             
                     
                     Root とは？
@@ -300,10 +300,9 @@
             
 
             
-            <ul class="articles">
-                
+        </li>
     
-        <li class="chapter " data-level="1.2.2.1" data-path="function.html">
+        <li class="chapter " data-level="1.2.3" data-path="function.html">
             
                 <a href="function.html#関数式">
             
@@ -316,7 +315,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2.2" data-path="function.html">
+        <li class="chapter " data-level="1.2.4" data-path="function.html">
             
                 <a href="function.html#呼び出し式">
             
@@ -329,7 +328,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2.3" data-path="function.html">
+        <li class="chapter " data-level="1.2.5" data-path="function.html">
             
                 <a href="function.html#変数のスコープ">
             
@@ -342,7 +341,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2.4" data-path="function.html">
+        <li class="chapter " data-level="1.2.6" data-path="function.html">
             
                 <a href="function.html#組み込み関数">
             
@@ -356,7 +355,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.2.4.1" data-path="function.html">
+        <li class="chapter " data-level="1.2.6.1" data-path="function.html">
             
                 <a href="function.html#print">
             
@@ -369,7 +368,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2.4.2" data-path="function.html">
+        <li class="chapter " data-level="1.2.6.2" data-path="function.html">
             
                 <a href="function.html#read">
             
@@ -382,7 +381,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2.4.3" data-path="function.html">
+        <li class="chapter " data-level="1.2.6.3" data-path="function.html">
             
                 <a href="function.html#readnum">
             
@@ -405,7 +404,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="sample.html">
+        <li class="chapter " data-level="1.3" data-path="sample.html">
             
                 <a href="sample.html">
             
@@ -419,7 +418,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.3.1" data-path="sample.html">
+        <li class="chapter " data-level="1.3.1" data-path="sample.html">
             
                 <a href="sample.html#fibonacciroot">
             
@@ -432,7 +431,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.2" data-path="sample.html">
+        <li class="chapter " data-level="1.3.2" data-path="sample.html">
             
                 <a href="sample.html#leapyearroot">
             
@@ -442,11 +441,6 @@
                 </a>
             
 
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -502,8 +496,7 @@
                                 
                                 <h1 id="基本文法">基本文法</h1>
 <h2 id="文">文</h2>
-<p>プログラムは複数の文によって構成されます。
-if 文と loop 文を除く、すべての文の末尾には必ず<code>;</code>が存在していなければなりません。</p>
+<p>プログラムは複数の文によって構成されます。 if 文と loop 文を除く、すべての文の末尾には必ず;が存在していなければなりません。</p>
 <pre><code>print(&quot;Hello, World!&quot;);
 </code></pre><h2 id="リテラル">リテラル</h2>
 <p>Root には、数値リテラル、文字列リテラル、真偽値リテラルの 3 つのリテラルが存在します。</p>
@@ -512,21 +505,15 @@ if 文と loop 文を除く、すべての文の末尾には必ず<code>;</code>
 true;
 false;
 </code></pre><h3 id="数値リテラル">数値リテラル</h3>
-<p>数値リテラルは整数のみ表現が可能ですが、暗黙的に浮動小数点数に変換されます。
-よって、以下のコードは 1.0 と出力されます。
-また、すべての数値リテラルは Truthy です。</p>
+<p>数値リテラルは整数のみ表現が可能ですが、暗黙的に浮動小数点数に変換されます。 よって、以下のコードは 1.0 と出力されます。 また、すべての数値リテラルは Truthy です。</p>
 <pre><code>print(1);
 </code></pre><h3 id="文字列リテラル">文字列リテラル</h3>
-<p><code>&quot;</code>で文字を囲うことで、文字列リテラルを表現することができます。
-<code>&quot;&quot;</code>で空文字を表現することができます。
-また、すべての文字列リテラルは Truthy です。</p>
+<p>&quot;で文字を囲うことで、文字列リテラルを表現することができます。 &quot;&quot;で空文字を表現することができます。 また、すべての文字列リテラルは Truthy です。</p>
 <pre><code>&quot;Hello, World!&quot;;
 </code></pre><h3 id="真偽値リテラル">真偽値リテラル</h3>
-<p><code>true</code>、あるいは<code>false</code>で真偽値リテラルを表現することができます。</p>
+<p>true、あるいは false で真偽値リテラルを表現することができます。</p>
 <h2 id="算術演算子">算術演算子</h2>
-<p>算術演算子として、<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>()</code>が使用できます。
-一般的なプログラミング言語と同じ動作をします。
-ただし除算<code>/</code>のみ、内部で数値を整数に変換してから計算を行います。</p>
+<p>算術演算子として、+、-、*、/、()が使用できます。 一般的なプログラミング言語と同じ動作をします。 ただし除算/のみ、内部で数値を整数に変換してから計算を行います。</p>
 <pre><code>let a = 1 + 1;
 let b = &quot;st&quot; + &quot;ring&quot;;
 let c = (3 + 10) * 2 - (50-10) / 4;
@@ -535,9 +522,7 @@ let c = (3 + 10) * 2 - (50-10) / 4;
 <pre><code>let a = 1;
 let b = &quot;aaa&quot;;
 let c = true;
-</code></pre><p><code>let</code>キーワードの後に識別子を置き、<code>=</code>の右側には識別子に束縛したい式を置きます 。
-また、再代入の際にも let キーワードを使用する必要があります。
-そのため、以下のコードはエラーを発生させます。</p>
+</code></pre><p>let キーワードの後に識別子を置き、=の右側には識別子に束縛したい式を置きます 。 また、再代入の際にも let キーワードを使用する必要があります。 そのため、以下のコードはエラーを発生させます。</p>
 <pre><code>let a = 1;
 a = 10;
 print(a);
@@ -546,14 +531,14 @@ print(a);
 let a = 10;
 print(a);
 </code></pre><h2 id="ifelse-文">if...else 文</h2>
-<p>一般的なプログラミング言語に存在する条件文です。<br>評価演算子は、<code>==</code>、<code>!=</code>、<code>&lt;</code>、<code>&gt;</code>、<code>&lt;=</code>、<code>&gt;=</code>の 6 つです。</p>
+<p>一般的なプログラミング言語に存在する条件文です。
+評価演算子は、==、!=、&lt;、&gt;、&lt;=、&gt;=の 6 つです。</p>
 <pre><code>if (10 &lt; 11) {
     print(&quot;true!!!&quot;);
 } else {
     print(&quot;false!!!&quot;);
 }
-</code></pre><p>また、else と if を組み合わせて使用することはできません。
-以下のコードはエラーを発生させます。</p>
+</code></pre><p>また、else と if を組み合わせて使用することはできません。 以下のコードはエラーを発生させます。</p>
 <pre><code>if (a == 1) {
     print(&quot;a is 1&quot;);
 } else if(a == 2) {
@@ -562,9 +547,7 @@ print(a);
     print(&quot;a is neither 1 nor 2&quot;);
 }
 </code></pre><h2 id="loop-文">loop 文</h2>
-<p>一般的なプログラミング言語に存在する繰り返し機構です。
-loop 文の中の文を繰り返し処理します。
-loop 文から抜け出すには、<code>return</code>キーワードを使用する必要があります。</p>
+<p>一般的なプログラミング言語に存在する繰り返し機構です。 loop 文の中の文を繰り返し処理します。 loop 文から抜け出すには、return キーワードを使用する必要があります。</p>
 <pre><code>loop {
     let a = b;
     if (a &gt; 5) {
@@ -615,7 +598,7 @@ loop 文から抜け出すには、<code>return</code>キーワードを使用�
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"チュートリアル","level":"1.2","depth":1,"next":{"title":"基本文法","level":"1.2.1","depth":2,"path":"tutorial.md","ref":"tutorial.md","articles":[{"title":"文","level":"1.2.1.1","depth":3,"anchor":"#文","path":"tutorial.md","ref":"tutorial.md#文","articles":[]},{"title":"リテラル","level":"1.2.1.2","depth":3,"anchor":"#リテラル","path":"tutorial.md","ref":"tutorial.md#リテラル","articles":[{"title":"数値リテラル","level":"1.2.1.2.1","depth":4,"anchor":"#数値リテラル","path":"tutorial.md","ref":"tutorial.md#数値リテラル","articles":[]},{"title":"文字列リテラル","level":"1.2.1.2.2","depth":4,"anchor":"#文字列リテラル","path":"tutorial.md","ref":"tutorial.md#文字列リテラル","articles":[]},{"title":"真偽値リテラル","level":"1.2.1.2.3","depth":4,"anchor":"#真偽値リテラル","path":"tutorial.md","ref":"tutorial.md#真偽値リテラル","articles":[]}]},{"title":"算術演算子","level":"1.2.1.3","depth":3,"anchor":"#算術演算子","path":"tutorial.md","ref":"tutorial.md#算術演算子","articles":[]},{"title":"代入文","level":"1.2.1.4","depth":3,"anchor":"#代入文","path":"tutorial.md","ref":"tutorial.md#代入文","articles":[]},{"title":"if...else 文","level":"1.2.1.5","depth":3,"anchor":"#ifelse-文","path":"tutorial.md","ref":"tutorial.md#ifelse-文","articles":[]},{"title":"loop 文","level":"1.2.1.6","depth":3,"anchor":"#loop-文","path":"tutorial.md","ref":"tutorial.md#loop-文","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"Root とは？","level":"1.1.1","depth":2,"anchor":"#root-とは？","path":"README.md","ref":"README.md#root-とは？","articles":[]},{"title":"実行","level":"1.1.2","depth":2,"anchor":"#実行","path":"README.md","ref":"README.md#実行","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"tutorial.md","mtime":"2021-01-25T22:30:46.608Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-25T22:46:59.037Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"チュートリアル","level":"1.2","depth":1,"next":{"title":"基本文法","level":"1.2.1","depth":2,"path":"tutorial.md","ref":"tutorial.md","articles":[{"title":"文","level":"1.2.1.1","depth":3,"anchor":"#文","path":"tutorial.md","ref":"tutorial.md#文","articles":[]},{"title":"リテラル","level":"1.2.1.2","depth":3,"anchor":"#リテラル","path":"tutorial.md","ref":"tutorial.md#リテラル","articles":[{"title":"数値リテラル","level":"1.2.1.2.1","depth":4,"anchor":"#数値リテラル","path":"tutorial.md","ref":"tutorial.md#数値リテラル","articles":[]},{"title":"文字列リテラル","level":"1.2.1.2.2","depth":4,"anchor":"#文字列リテラル","path":"tutorial.md","ref":"tutorial.md#文字列リテラル","articles":[]},{"title":"真偽値リテラル","level":"1.2.1.2.3","depth":4,"anchor":"#真偽値リテラル","path":"tutorial.md","ref":"tutorial.md#真偽値リテラル","articles":[]}]},{"title":"算術演算子","level":"1.2.1.3","depth":3,"anchor":"#算術演算子","path":"tutorial.md","ref":"tutorial.md#算術演算子","articles":[]},{"title":"代入文","level":"1.2.1.4","depth":3,"anchor":"#代入文","path":"tutorial.md","ref":"tutorial.md#代入文","articles":[]},{"title":"if...else 文","level":"1.2.1.5","depth":3,"anchor":"#ifelse-文","path":"tutorial.md","ref":"tutorial.md#ifelse-文","articles":[]},{"title":"loop 文","level":"1.2.1.6","depth":3,"anchor":"#loop-文","path":"tutorial.md","ref":"tutorial.md#loop-文","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"Root とは？","level":"1.1.1","depth":2,"anchor":"#root-とは?","path":"README.md","ref":"README.md#root-とは?","articles":[]},{"title":"実行","level":"1.1.2","depth":2,"anchor":"#実行","path":"README.md","ref":"README.md#実行","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"tutorial.md","mtime":"2021-01-26T01:25:37.803Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-26T01:34:24.921Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -667,6 +650,10 @@ loop 文から抜け出すには、<code>return</code>キーワードを使用�
     </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
